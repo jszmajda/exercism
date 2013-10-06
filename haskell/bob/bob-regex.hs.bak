@@ -1,0 +1,30 @@
+module Bob (responseFor) where
+
+import Text.Regex.Posix
+
+isLike :: String -> String -> Bool
+isLike s p = s =~ p :: Bool
+
+isntLike :: String -> String -> Bool
+isntLike s p = not $ isLike s p
+
+stripMessage :: String -> String
+stripMessage m = [ c | c <- m, c /= '\n' ]
+
+isShouting :: String -> Bool
+isShouting m = m `isntLike` "[a-z]" && m `isLike` "[A-Z]"
+
+isQuestion :: String -> Bool
+isQuestion m = m `isLike` "\\?$"
+
+isSilence :: String -> Bool
+isSilence m = m `isntLike` "[a-zA-Z0-9]"
+
+responseFor :: String -> String
+responseFor input
+  | isShouting message = "Woah, chill out!"
+  | isQuestion message = "Sure."
+  | isSilence message  = "Fine. Be that way!"
+  | otherwise          = "Whatever."
+  where
+    message = stripMessage input
