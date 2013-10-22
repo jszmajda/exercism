@@ -1,21 +1,12 @@
 module WordCount (wordCount) where
 
-import Data.Char
-import qualified Data.Map as M
+import Data.Char (isAlphaNum, toLower)
+import Data.List.Split (wordsBy)
+import Data.Map.Strict (Map, fromListWith)
 
-wordCount :: String -> M.Map String Int
-wordCount message = foldl collate M.empty wordCollection
+wordCount :: String -> Map String Int
+wordCount message = fromListWith (+) $ exploded wordCollection
   where
-    collate set k   = M.insert k (countUp set k) set
-    countUp set k   = (M.findWithDefault 0 k set) + 1
-    wordCollection  = words lowers
-    lowers          = map sanitize message
-    sanitize c      = if (not . isAlphaNum) c then ' ' else toLower c
-
--- wordCount :: String -> Map String Int
--- wordCount message = fromList $ map counts wordCollection
---   where
---     counts list    = (head list, length list)
---     wordCollection = group $ sort $ words lowers
---     lowers         = map sanitize message
---     sanitize c     = if (not . isAlphaNum) c then ' ' else toLower c
+    exploded []     = []
+    exploded (x:xs) = (x,1) : exploded xs
+    wordCollection  = wordsBy (not . isAlphaNum) $ map toLower message
