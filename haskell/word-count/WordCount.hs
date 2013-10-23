@@ -5,8 +5,7 @@ import Data.List.Split (wordsBy)
 import Data.Map.Strict (Map, fromListWith)
 
 wordCount :: String -> Map String Int
-wordCount message = fromListWith (+) $ exploded wordCollection
+wordCount message = fromListWith (+) $ exploded words
   where
-    exploded []     = []
-    exploded (x:xs) = (x,1) : exploded xs
-    wordCollection  = wordsBy (not . isAlphaNum) $ map toLower message
+    exploded = (`zip` repeat 1)
+    words    = wordsBy (not . isAlphaNum) $ map toLower message
