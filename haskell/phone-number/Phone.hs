@@ -19,6 +19,6 @@ prettyPrint :: String -> String
 prettyPrint s = "(" ++ (areaCode n) ++ ") " ++ localCode ++ "-" ++ lastFour
   where
     n         = number s
-    localCode = slice 3 5
-    lastFour  = drop 6 n
-    slice f t = take (t - f + 1) (drop f n)
+    localCode = fst parts
+    lastFour  = snd parts
+    parts     = splitAt 3 $ drop 3 n
