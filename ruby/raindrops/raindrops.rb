@@ -1,16 +1,24 @@
 class Raindrops
   def convert(a)
-    e = []
-    e << "Pling" if prime?(a,3)
-    e << "Plang" if prime?(a,5)
-    e << "Plong" if prime?(a,7)
+    Droplet.new(a).to_s
+  end
+end
 
-    e.empty? ? a.to_s : e.join
+class Droplet
+  def initialize(d)
+    @d = d
   end
 
-  private
+  def to_s
+    e = []
+    e << "Pling" if divisible_by?(3)
+    e << "Plang" if divisible_by?(5)
+    e << "Plong" if divisible_by?(7)
 
-  def prime?(a,n)
-    a % n == 0
+    e.empty? ? @d.to_s : e.join
+  end
+
+  def divisible_by?(n)
+    @d % n == 0
   end
 end
