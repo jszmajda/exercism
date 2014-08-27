@@ -1,0 +1,1 @@
+/usr/bin/c++   -std=c++11 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/bob.dir/bob_test.cpp.o  -o bob  /usr/local/lib/libboost_unit_test_framework-mt.a /usr/local/lib/libboost_date_time-mt.a /usr/local/lib/libboost_regex-mt.a 

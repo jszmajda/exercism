@@ -1,6 +1,9 @@
 class Hamming
   def self.compute(a,b)
-    HammingComputer.new(a,b).distance
+  (a.chars).zip(b.chars).select do |x, y|
+    x != y
+  end.count
+    #HammingComputer.new(a,b).distance
   end
 
   class HammingComputer
@@ -28,4 +31,7 @@ class Hamming
         raw_pairs.reject{|x,y| x.nil? || y.nil? }
       end
   end
+end
+
+def hamming(a, b)
 end
