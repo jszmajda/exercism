@@ -1,22 +1,18 @@
 module Robot (robotName, mkRobot, resetName) where
 import System.Random
-import Data.IORef
+import Control.Concurrent.MVar
 
 -- newtype instead of data because it's faster
-newtype Robot = Robot { name :: IORef String }
-
-robotName :: Robot -> IO String
-robotName r = readIORef $ name r
+newtype Robot = Robot { name :: MVar String }
 
 mkRobot :: IO Robot
-mkRobot = do
-  nm <- newIORef =<< generateName
-  return $ Robot nm
+mkRobot = fmap Robot (generateName >>= newMVar)
+
+robotName :: Robot -> IO String
+robotName r = readMVar (name r)
 
 resetName :: Robot -> IO ()
-resetName r = do
-  writeIORef (name r) =<< generateName
-  return ()
+resetName r = modifyMVar_ (name r) (const generateName)
 
 generateName :: IO String
 generateName = mapM randomRIO [c,c,n,n,n]
