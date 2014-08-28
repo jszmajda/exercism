@@ -1,4 +1,4 @@
-module Sublist where
+module Sublist (Sublist(..), sublist) where
 import Data.List (isInfixOf)
 
 data Sublist = Equal | Sublist | Superlist | Unequal
