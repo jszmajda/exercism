@@ -1,7 +1,7 @@
 module Grains (square, total) where
 
 square :: Integral a => a -> a
-square n = 2^(n-1)
+square n = 2 ^ (n - 1)
 
 total :: Integral a => a
-total = sum $ map square [1..64]
+total = 2 ^ 64 - 1
