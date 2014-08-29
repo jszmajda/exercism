@@ -6,4 +6,4 @@ isLeapYear y = isDivByFour && (not isCentury || isFourHundred)
     isDivByFour   = ym   4
     isCentury     = ym 100
     isFourHundred = ym 400
-    ym = (== 0).mod y
+    ym = (== 0) . mod y
