@@ -1,7 +1,7 @@
 module SpaceAge (Planet(..), ageOn) where
 
 data Planet =
-  Earth | Mercury | Venus | Mars | Jupiter | Saturn | Uranus | Neptune
+  Mercury | Venus | Earth | Mars | Jupiter | Saturn | Uranus | Neptune
 
 ageOn :: Planet -> Float -> Float
 ageOn = divideBy . yearLength
@@ -9,12 +9,12 @@ ageOn = divideBy . yearLength
 
 yearLength :: Planet -> Float
 yearLength Earth   = 31557600.0
-yearLength Mercury = ye * 0.2408467
-yearLength Venus   = ye * 0.61519726
-yearLength Mars    = ye * 1.8808158
-yearLength Jupiter = ye * 11.862615
-yearLength Saturn  = ye * 29.447498
-yearLength Uranus  = ye * 84.016846
-yearLength Neptune = ye * 164.79132
+yearLength Mercury = e * 0.2408467
+yearLength Venus   = e * 0.61519726
+yearLength Mars    = e * 1.8808158
+yearLength Jupiter = e * 11.862615
+yearLength Saturn  = e * 29.447498
+yearLength Uranus  = e * 84.016846
+yearLength Neptune = e * 164.79132
 
-ye = yearLength Earth
+e = yearLength Earth
