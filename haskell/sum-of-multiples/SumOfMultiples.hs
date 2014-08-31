@@ -9,4 +9,5 @@ sumOfMultiples factors limit = sum multiples
 sumOfMultiplesDefault :: Integer -> Integer
 sumOfMultiplesDefault = sumOfMultiples [3,5]
 
+(.:) :: (b -> c) -> (a -> a1 -> b) -> a -> a1 -> c
 f .: g = \x y -> f (g x y)
