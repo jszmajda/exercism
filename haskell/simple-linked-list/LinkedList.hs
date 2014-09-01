@@ -1,4 +1,4 @@
-module LinkedList where
+module LinkedList (nil, new, datum, next, isNil, toList, fromList, reverseLinkedList) where
 
 import Data.Maybe
 
