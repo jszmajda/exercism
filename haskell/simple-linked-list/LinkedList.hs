@@ -1,29 +1,32 @@
 module LinkedList where
 
-data Element = Elem (Maybe Int) (Maybe Element)
+import Data.Maybe
+
+data Element = Elem { _datum :: Maybe Int, _next :: Maybe Element }
 
 nil :: Element
 nil = Elem Nothing Nothing
 
 new :: Int -> Element -> Element
 new d e = Elem (Just d) (Just e)
+-- TODO find a function :: (m a -> m b -> c) -> (a -> m a) -> (b -> m b) -> (m a -> m b)
+--   to pass to Elem?
 
 datum :: Element -> Int
-datum (Elem Nothing  _) = undefined
-datum (Elem (Just d) _) = d
+datum = fromJust . _datum
 
 next :: Element -> Element
-next (Elem _ Nothing)  = undefined
-next (Elem _ (Just n)) = n
+next = fromJust . _next
 
 isNil :: Element -> Bool
 isNil (Elem Nothing _) = True
 isNil (Elem _       _) = False
 
 toList :: Element -> [Int]
-toList (Elem (Just d) Nothing)  = [d]
+toList (Elem Nothing  Nothing ) = []
+toList (Elem (Just d) Nothing ) = [d]
+toList (Elem Nothing  (Just n)) = toList n
 toList (Elem (Just d) (Just n)) = d : toList n
-toList (Elem Nothing _        ) = []
 
 fromList :: [Int] -> Element
 fromList []     = nil
