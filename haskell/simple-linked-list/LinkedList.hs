@@ -2,7 +2,7 @@ module LinkedList (nil, new, datum, next, isNil, toList, fromList, reverseLinked
 
 import Data.Maybe
 
-data Element = Nil | Elem { datum :: Int, next :: Element }
+data Element = Nil | Elem { datum :: Int, next :: Element } deriving Show
 
 nil :: Element
 nil = Nil
@@ -22,4 +22,11 @@ fromList :: [Int] -> Element
 fromList = foldr Elem Nil
 
 reverseLinkedList :: Element -> Element
-reverseLinkedList = fromList . reverse . toList
+reverseLinkedList Nil = Nil
+reverseLinkedList e@(Elem d Nil) = e
+reverseLinkedList e@(Elem d n) = replayBackwards e Nil
+
+replayBackwards :: Element -> Element -> Element
+replayBackwards Nil e = e
+replayBackwards e   n = replayBackwards (next e) (Elem (datum e) n)
+
