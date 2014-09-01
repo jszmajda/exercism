@@ -17,4 +17,5 @@ yearLength Saturn  = e * 29.447498
 yearLength Uranus  = e * 84.016846
 yearLength Neptune = e * 164.79132
 
+e :: Float
 e = yearLength Earth
