@@ -2,35 +2,24 @@ module LinkedList (nil, new, datum, next, isNil, toList, fromList, reverseLinked
 
 import Data.Maybe
 
-data Element = Elem { _datum :: Maybe Int, _next :: Maybe Element }
+data Element = Nil | Elem { datum :: Int, next :: Element }
 
 nil :: Element
-nil = Elem Nothing Nothing
+nil = Nil
 
 new :: Int -> Element -> Element
-new d e = Elem (Just d) (Just e)
--- TODO find a function :: (m a -> m b -> c) -> (a -> m a) -> (b -> m b) -> (m a -> m b)
---   to pass to Elem?
-
-datum :: Element -> Int
-datum = fromJust . _datum
-
-next :: Element -> Element
-next = fromJust . _next
+new = Elem
 
 isNil :: Element -> Bool
-isNil (Elem Nothing _) = True
-isNil (Elem _       _) = False
+isNil Nil = True
+isNil _ = False
 
 toList :: Element -> [Int]
-toList (Elem Nothing  Nothing ) = []
-toList (Elem (Just d) Nothing ) = [d]
-toList (Elem Nothing  (Just n)) = toList n
-toList (Elem (Just d) (Just n)) = d : toList n
+toList Nil = []
+toList (Elem d n) = d : toList n
 
 fromList :: [Int] -> Element
-fromList []     = nil
-fromList (x:xs) = Elem (Just x) $ Just (fromList xs)
+fromList = foldr Elem Nil
 
 reverseLinkedList :: Element -> Element
 reverseLinkedList = fromList . reverse . toList
