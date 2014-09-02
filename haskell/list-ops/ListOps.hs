@@ -1,13 +1,5 @@
 module ListOps
-  ( length
-  , reverse
-  , map
-  , filter
-  , foldr
-  , foldl'
-  , (++)
-  , concat
-  ) where
+  ( length, reverse, map, filter, foldr, foldl', (++), concat) where
 
 import Prelude hiding
   ( length, reverse, map, filter, foldr, (++), concat )
@@ -21,8 +13,7 @@ foldr _ s [] = s
 foldr f s (x:xs) = f x (foldr f s xs)
 
 length :: [a] -> Int
-length [] = 0
-length (x:xs) = 1 + length xs
+length = foldr (\_ -> (+) 1) 0
 
 reverse :: [a] -> [a]
 reverse []     = []
