@@ -25,5 +25,5 @@ reverseLinkedList :: Element -> Element
 reverseLinkedList = replayBackwards Nil
 
 replayBackwards :: Element -> Element -> Element
-replayBackwards last Nil = last
-replayBackwards rest e   = replayBackwards (Elem (datum e) rest) (next e)
+replayBackwards acc Nil        = acc
+replayBackwards acc (Elem d n) = replayBackwards (Elem d acc) n
