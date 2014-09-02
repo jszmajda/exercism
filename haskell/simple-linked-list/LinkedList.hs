@@ -22,11 +22,8 @@ fromList :: [Int] -> Element
 fromList = foldr Elem Nil
 
 reverseLinkedList :: Element -> Element
-reverseLinkedList Nil = Nil
-reverseLinkedList e@(Elem d Nil) = e
-reverseLinkedList e@(Elem d n) = replayBackwards e Nil
+reverseLinkedList = replayBackwards Nil
 
 replayBackwards :: Element -> Element -> Element
-replayBackwards Nil e = e
-replayBackwards e   n = replayBackwards (next e) (Elem (datum e) n)
-
+replayBackwards last Nil = last
+replayBackwards rest e   = replayBackwards (Elem (datum e) rest) (next e)
