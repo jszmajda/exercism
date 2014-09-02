@@ -1,21 +1,27 @@
 module SpaceAge (Planet(..), ageOn) where
 
+import Control.Arrow
+
 data Planet =
   Mercury | Venus | Earth | Mars | Jupiter | Saturn | Uranus | Neptune
 
 ageOn :: Planet -> Float -> Float
-ageOn = divideBy . yearLength
-  where divideBy = (*) . (1 /)
+ageOn = divideBy . planetSeconds
+  where
+    divideBy      = (*) . (1 /)
+    planetSeconds = (earthSeconds *) . yearLength
 
 yearLength :: Planet -> Float
-yearLength Earth   = 31557600.0
-yearLength Mercury = e * 0.2408467
-yearLength Venus   = e * 0.61519726
-yearLength Mars    = e * 1.8808158
-yearLength Jupiter = e * 11.862615
-yearLength Saturn  = e * 29.447498
-yearLength Uranus  = e * 84.016846
-yearLength Neptune = e * 164.79132
+yearLength p =
+  case p of
+    Earth   -> 1.0
+    Mercury -> 0.2408467
+    Venus   -> 0.61519726
+    Mars    -> 1.8808158
+    Jupiter -> 11.862615
+    Saturn  -> 29.447498
+    Uranus  -> 84.016846
+    Neptune -> 164.79132
 
-e :: Float
-e = yearLength Earth
+earthSeconds :: Float
+earthSeconds = 31557600.0
