@@ -6,31 +6,28 @@ import Prelude hiding
 
 foldl' :: (b -> a -> b) -> b -> [a] -> b
 foldl' _ z []     = z
-foldl' f z (x:xs) = foldl' f (f z x) xs
+foldl' f z (x:xs) = foldl' f (f (seq z z) x) xs
 
 foldr :: (a -> b -> b) -> b -> [a] -> b
 foldr _ z [] = z
 foldr f z (x:xs) = f x (foldr f z xs)
 
 length :: [a] -> Int
-length = foldr (\_ -> (+) 1) 0
+length = foldl' (\z _ -> z + 1) 0
 
 reverse :: [a] -> [a]
-reverse []     = []
-reverse (x:xs) = reverse xs ++ [x]
+reverse = rev []
+  where rev z = foldl' (flip (:)) []
 
 map :: (a -> b) -> [a] -> [b]
-map f [] = []
-map f (x:xs) = f x : map f xs
+map f = foldr ((:) . f) []
 
 filter :: (a -> Bool) -> [a] -> [a]
-filter f []     = []
-filter f (x:xs) | f x       = x : filter f xs
-                | otherwise =     filter f xs
+filter f = foldr filt []
+  where filt x z = if f x then x : z else z
 
 (++) :: [a] -> [a] -> [a]
-[]     ++ ys = ys
-(x:xs) ++ ys = x : (xs ++ ys)
+xs ++ ys = foldr (:) ys xs
 
 concat :: [[a]] -> [a]
 concat = foldr (++) []
