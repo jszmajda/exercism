@@ -1,12 +1,16 @@
 module ETL (transform) where
 
 import qualified Data.Map as M
+import Data.List (foldl')
 import Data.Char (toLower)
 
 transform :: M.Map Int [String] -> M.Map String Int
-transform = M.fromList . remap . M.toList
-  where remap = concatMap unwindPair
+transform = fst . M.mapAccumWithKey accum base
+  where base = M.empty :: M.Map String Int
 
-unwindPair :: (Int, [String]) -> [(String, Int)]
-unwindPair (score, letters) = map (\ l -> (tl l, score)) letters
+accum :: M.Map String Int -> Int -> [String] -> (M.Map String Int, Int)
+accum z score letters = (foldInsert z score letters, score)
+
+foldInsert :: M.Map String Int -> Int -> [String] -> M.Map String Int
+foldInsert z score = foldl' (\ z l -> M.insert (tl l) score z) z
   where tl = map toLower
