@@ -9,8 +9,7 @@ transform = fst . M.mapAccumWithKey accum base
   where base = M.empty :: M.Map String Int
 
 accum :: M.Map String Int -> Int -> [String] -> (M.Map String Int, Int)
-accum z score letters = (foldInsert z score letters, score)
-
-foldInsert :: M.Map String Int -> Int -> [String] -> M.Map String Int
-foldInsert z score = foldl' (\ z l -> M.insert (tl l) score z) z
-  where tl = map toLower
+accum z score letters = (foldInsert, score)
+  where
+    foldInsert = foldl' (\ z l -> M.insert (tl l) score z) z letters
+    tl         = map toLower
