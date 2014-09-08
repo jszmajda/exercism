@@ -6,7 +6,8 @@ import Prelude hiding
 
 foldl' :: (b -> a -> b) -> b -> [a] -> b
 foldl' _ z []     = z
-foldl' f z (x:xs) = foldl' f (f (seq z z) x) xs
+foldl' f z (x:xs) = seq z' foldl' f z' xs
+  where z' = f z x
 
 foldr :: (a -> b -> b) -> b -> [a] -> b
 foldr _ z [] = z
