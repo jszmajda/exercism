@@ -7,10 +7,10 @@ import Data.Maybe (fromJust)
 import Data.List (elemIndex, elemIndices)
 
 data Weekday = Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday
-  deriving (Show, Eq)
+  deriving (Show, Eq, Read, Enum)
 
-data Schedule = Teenth | First | Second | Third | Fourth | Last
-  deriving Show
+data Schedule = First | Second | Third | Fourth | Last | Teenth
+  deriving (Show, Eq, Enum)
 
 teenths :: [Int]
 teenths = [13,14,15,16,17,18,19]
@@ -18,29 +18,21 @@ teenths = [13,14,15,16,17,18,19]
 type Month = Int
 type Year  = Integer
 
-daysInMonth :: Year -> Month -> Int
-daysInMonth y m = if m == 2 then february else case m of
-                  4  -> 30
-                  6  -> 30
-                  9  -> 30
-                  11 -> 30
-                  _  -> 31
-  where february = if isLeapYear y then 29 else 28
-
 meetupDay :: Schedule -> Weekday -> Year -> Month -> Day
-meetupDay First  w y m = fromGregorian y m $ (+) 1 $ nthElemIndex w 0 md
-  where md = monthDays y m
-meetupDay Second w y m = fromGregorian y m $ (+) 1 $ nthElemIndex w 1 md
-  where md = monthDays y m
-meetupDay Third  w y m = fromGregorian y m $ (+) 1 $ nthElemIndex w 2 md
-  where md = monthDays y m
-meetupDay Fourth w y m = fromGregorian y m $ (+) 1 $ nthElemIndex w 3 md
-  where md = monthDays y m
-meetupDay Last   w y m = fromGregorian y m $ fst (reverse md !! tupleIndex w (reverse md))
-  where md = monthDays y m
-meetupDay Teenth w y m = fromGregorian y m $ fst $ td !! tupleIndex w td
+meetupDay s w y m = fromGregorian y m d
   where
-    td = filter teenth (monthDays y m)
+    md = monthDays y m
+    d  = if s == Teenth then teenthDay w md else meetupDay' s w md
+
+meetupDay' :: Schedule -> Weekday -> [(Int, Weekday)] -> Int
+meetupDay' Last   w md = fst (reverse md !! tupleIndex w (reverse md))
+meetupDay' s w md = 1 + nthElemIndex w nth md
+  where nth = fromEnum s
+
+teenthDay :: Weekday -> [(Int, Weekday)] -> Int
+teenthDay w md = fst $ td !! tupleIndex w td
+  where
+    td = filter teenth md
     teenth d = fst d `elem` teenths
 
 monthDays :: Year -> Month -> [(Int,Weekday)]
@@ -55,26 +47,23 @@ dayName :: Day -> String
 dayName = formatTime defaultTimeLocale "%A"
 
 weekFromString :: String -> [Weekday]
-weekFromString d = offsetWeek $ case d of
-                        "Monday"    -> 0
-                        "Tuesday"   -> 1
-                        "Wednesday" -> 2
-                        "Thursday"  -> 3
-                        "Friday"    -> 4
-                        "Saturday"  -> 5
-                        _           -> 6
+weekFromString d = offsetWeek $ fromEnum day
+  where
+    day = read d :: Weekday
+
 
 allDays :: [Weekday]
 allDays = [Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday]
 
--- validDays First Monday =
--- maybe go down this road?
-  -- import Data.Time.Format
-  -- import System.Locale
-  -- import Data.Time.Clock
-  -- a <- getCurrentTime
-  -- formatTime defaultTimeLocale "%A" a
-  --
+daysInMonth :: Year -> Month -> Int
+daysInMonth y m = if m == 2 then february else case m of
+                  4  -> 30
+                  6  -> 30
+                  9  -> 30
+                  11 -> 30
+                  _  -> 31
+  where february = if isLeapYear y then 29 else 28
+
 elemIndex' :: Eq a => a -> [a] -> Int
 elemIndex' e l = fromJust $ elemIndex e l
 
