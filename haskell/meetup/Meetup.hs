@@ -22,22 +22,30 @@ meetupDay :: Schedule -> Weekday -> Year -> Month -> Day
 meetupDay s w y m = fromGregorian y m d
   where
     md = monthDays y m
-    d  = if s == Teenth then teenthDay w md else meetupDay' s w md
-
-meetupDay' :: Schedule -> Weekday -> [(Int, Weekday)] -> Int
-meetupDay' Last   w md = fst (reverse md !! tupleIndex w (reverse md))
-meetupDay' s w md = 1 + nthElemIndex w nth md
-  where nth = fromEnum s
+    d  = case s of
+           Teenth -> teenthDay w md
+           Last   -> lastMeetupDay w y m
+           _      -> meetupDay' s w md
 
 teenthDay :: Weekday -> [(Int, Weekday)] -> Int
-teenthDay w md = fst $ td !! tupleIndex w td
+teenthDay w md = fst $ findSndTuple w td
   where
     td = filter teenth md
     teenth d = fst d `elem` teenths
 
+lastMeetupDay :: Weekday -> Year -> Month -> Int
+lastMeetupDay w y m = fst $ findSndTuple w md'
+  where
+    md = monthDays y m
+    md' = reverse $ take (daysInMonth y m) md
+
+meetupDay' :: Schedule -> Weekday -> [(Int, Weekday)] -> Int
+meetupDay' s w md = 1 + nthElemIndex w nth md
+  where nth = fromEnum s
+
 monthDays :: Year -> Month -> [(Int,Weekday)]
 monthDays y m = zip [1,2..] days
-  where days = take (daysInMonth y m) $ cycle $ weekFromString firstDay
+  where days =  cycle $ weekFromString firstDay
         firstDay = dayName $ fromGregorian y m 1
 
 offsetWeek :: Int -> [Weekday]
@@ -50,7 +58,6 @@ weekFromString :: String -> [Weekday]
 weekFromString d = offsetWeek $ fromEnum day
   where
     day = read d :: Weekday
-
 
 allDays :: [Weekday]
 allDays = [Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday]
@@ -67,9 +74,10 @@ daysInMonth y m = if m == 2 then february else case m of
 elemIndex' :: Eq a => a -> [a] -> Int
 elemIndex' e l = fromJust $ elemIndex e l
 
-tupleIndex :: Eq a => a -> [(b,a)] -> Int
-tupleIndex e l = elemIndex' e l'
-  where l' = map snd l
+findSndTuple :: Eq b => b -> [(a,b)] -> (a,b)
+findSndTuple e l = l !! idx
+  where idx = elemIndex' e l'
+        l'  = map snd l
 
 nthElemIndex :: Eq a => a -> Int -> [(b,a)] -> Int
 nthElemIndex e offset l = elemIndices e l' !! offset
