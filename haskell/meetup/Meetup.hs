@@ -5,9 +5,10 @@ import Data.Time.Format
 import System.Locale
 import Data.Maybe (fromJust)
 import Data.List (elemIndex, elemIndices)
+import Data.Ix
 
 data Weekday = Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday
-  deriving (Show, Eq, Read, Enum)
+  deriving (Show, Eq, Read, Enum, Ix, Ord)
 
 data Schedule = First | Second | Third | Fourth | Last | Teenth
   deriving (Show, Eq, Enum)
@@ -45,11 +46,8 @@ meetupDay' s w md = 1 + nthElemIndex w nth md
 
 monthDays :: Year -> Month -> [(Int,Weekday)]
 monthDays y m = zip [1,2..] days
-  where days =  cycle $ weekFromString firstDay
+  where days = cycle $ weekFromString firstDay
         firstDay = dayName $ fromGregorian y m 1
-
-offsetWeek :: Int -> [Weekday]
-offsetWeek o = take 7 $ drop o $ cycle allDays
 
 dayName :: Day -> String
 dayName = formatTime defaultTimeLocale "%A"
@@ -57,19 +55,22 @@ dayName = formatTime defaultTimeLocale "%A"
 weekFromString :: String -> [Weekday]
 weekFromString d = offsetWeek $ fromEnum day
   where
-    day = read d :: Weekday
+    day          = read d :: Weekday
+    offsetWeek o = take 7 $ drop o $ cycle allDays
 
 allDays :: [Weekday]
-allDays = [Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday]
+allDays = range (Monday, Sunday)
 
 daysInMonth :: Year -> Month -> Int
-daysInMonth y m = if m == 2 then february else case m of
-                  4  -> 30
-                  6  -> 30
-                  9  -> 30
-                  11 -> 30
-                  _  -> 31
-  where february = if isLeapYear y then 29 else 28
+daysInMonth y m = if m == 2 then february else normal
+  where
+    february = if isLeapYear y then 29 else 28
+    normal = case m of
+               4  -> 30
+               6  -> 30
+               9  -> 30
+               11 -> 30
+               _  -> 31
 
 elemIndex' :: Eq a => a -> [a] -> Int
 elemIndex' e l = fromJust $ elemIndex e l
