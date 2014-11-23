@@ -72,11 +72,3 @@ findSndTuple e l = l !! idx
 nthElemIndex :: Eq a => a -> Int -> [(b,a)] -> Int
 nthElemIndex e offset l = elemIndices e l' !! offset
   where l' = map snd l
-
-isLeapYear :: Year -> Bool
-isLeapYear y = isDivByFour && (not isCentury || isFourHundred)
-  where
-    isDivByFour   = ym   4
-    isCentury     = ym 100
-    isFourHundred = ym 400
-    ym = (== 0) . mod y
