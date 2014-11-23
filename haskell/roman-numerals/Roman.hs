@@ -10,8 +10,7 @@ numerals d = millions ++ thousands ++ hundreds ++ tens
 
 scaleSym :: Char -> Char -> Char -> Int -> Int -> String
 scaleSym b f n d scale = tenSym b f n x
-  where
-    x = d `mod` 10 ^ (scale + 1) `div` 10 ^ scale
+  where x = d `mod` 10 ^ (scale + 1) `div` 10 ^ scale
 
 -- d is always scaled to the current symbol size
 tenSym :: Char -> Char -> Char -> Int -> String
