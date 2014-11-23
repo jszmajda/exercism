@@ -3,12 +3,15 @@ module Roman (numerals) where
 numerals :: Int -> String
 numerals d = millions ++ thousands ++ hundreds ++ tens
   where
-    tBase = d     `mod` 1000
-    hBase = tBase `mod` 100
     millions  = replicate (d `div` 1000) 'M'
-    thousands = tenSym 'C' 'D' 'M' (tBase `div` 100)
-    hundreds  = tenSym 'X' 'L' 'C' (hBase `div` 10)
-    tens      = tenSym 'I' 'V' 'X' (hBase `mod` 10)
+    thousands = scaleSym 'C' 'D' 'M' d 2
+    hundreds  = scaleSym 'X' 'L' 'C' d 1
+    tens      = scaleSym 'I' 'V' 'X' d 0
+
+scaleSym :: Char -> Char -> Char -> Int -> Int -> String
+scaleSym b f n d scale = tenSym b f n x
+  where
+    x = d `mod` 10 ^ (scale + 1) `div` 10 ^ scale
 
 -- d is always scaled to the current symbol size
 tenSym :: Char -> Char -> Char -> Int -> String
