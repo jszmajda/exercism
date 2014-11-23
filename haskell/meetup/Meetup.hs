@@ -1,6 +1,6 @@
 module Meetup (Weekday(..), Schedule(..), meetupDay) where
 
-import Data.Time.Calendar (Day, fromGregorian)
+import Data.Time.Calendar (Day, fromGregorian, gregorianMonthLength)
 import Data.Time.Format
 import System.Locale
 import Data.Maybe (fromJust)
@@ -38,7 +38,7 @@ lastMeetupDay :: Weekday -> Year -> Month -> Int
 lastMeetupDay w y m = fst $ findSndTuple w md'
   where
     md = monthDays y m
-    md' = reverse $ take (daysInMonth y m) md
+    md' = reverse $ take (gregorianMonthLength y m) md
 
 meetupDay' :: Schedule -> Weekday -> [(Int, Weekday)] -> Int
 meetupDay' s w md = 1 + nthElemIndex w nth md
@@ -60,17 +60,6 @@ weekFromString d = offsetWeek $ fromEnum day
 
 allDays :: [Weekday]
 allDays = range (Monday, Sunday)
-
-daysInMonth :: Year -> Month -> Int
-daysInMonth y m = if m == 2 then february else normal
-  where
-    february = if isLeapYear y then 29 else 28
-    normal = case m of
-               4  -> 30
-               6  -> 30
-               9  -> 30
-               11 -> 30
-               _  -> 31
 
 elemIndex' :: Eq a => a -> [a] -> Int
 elemIndex' e l = fromJust $ elemIndex e l
