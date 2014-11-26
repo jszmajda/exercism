@@ -1,10 +1,7 @@
 module Binary (toDecimal) where
 
-import Data.Sequence (fromList, foldrWithIndex)
-
 toDecimal :: String -> Int
-toDecimal = foldrWithIndex (baseIndexSum 2) 0 . fromList . reverse
-
-baseIndexSum :: Int -> Int -> Char -> Int -> Int
-baseIndexSum b i '1' z = z + b ^ i
-baseIndexSum _ _  _  z = z
+toDecimal s = sum $ numbered powers
+  where
+    numbered = map (\(a,b) -> if a == '1' then b else 0)
+    powers = zip (reverse s) $ iterate (*2) 1
