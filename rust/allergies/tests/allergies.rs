@@ -26,13 +26,11 @@ fn test_has_the_right_allergies() {
 }
 
 #[test]
-#[ignore]
 fn test_no_allergies_at_all() {
     assert_eq!(Vec::<Allergen>::new(), Allergies(0).allergies());
 }
 
 #[test]
-#[ignore]
 fn test_just_to_peanuts() {
     assert_eq!(vec![Allergen::Peanuts], Allergies(2).allergies());
 }
