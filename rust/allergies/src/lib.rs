@@ -11,6 +11,12 @@ pub enum Allergen {
     Cats = 128
 }
 
+/*
+ * Discriminant: (https://doc.rust-lang.org/nightly/reference.html#enumerations)
+ * You can cast an enum to get this value:
+ * let x = Foo::Bar as u32; // x is now 123u32
+ */
+
 // very surprising to have to publicize the only member of this tuple struct
 pub struct Allergies(pub u8);
 
