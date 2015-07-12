@@ -6,19 +6,19 @@ pub fn anagrams_for<'a> (source: &str, candidates: &'a [&str]) -> Vec<&'a str> {
 }
 
 
-// sorts string bytes and compares the result. It might be faster to walk each string once, build
+// sorts string characters and compares the result. It might be faster to walk each string once, build
 // some data structure, and compare that but I'm not braining well today.
 fn is_anagram_of(source: &str, test: &str) -> bool {
-    let lowered_source = upper(source);
-    let lowered_test   = upper(test);
+    let uppered_source = upper(source);
+    let uppered_test   = upper(test);
 
-    if lowered_source == lowered_test { return false; }
+    if uppered_source == uppered_test { return false; }
 
-    let mut sb: Vec<char> = lowered_source.chars().collect();
-    let mut tb: Vec<char> = lowered_test.chars().collect();
-    sb.sort();
-    tb.sort();
-    sb == tb
+    let mut sc: Vec<char> = uppered_source.chars().collect();
+    let mut tc: Vec<char> = uppered_test.chars().collect();
+    sc.sort();
+    tc.sort();
+    sc == tc
 }
 
 // this is basically Rust 1.2's String::to_uppercase
