@@ -22,10 +22,13 @@ pub struct Allergies(pub u8);
 
 impl Allergies {
     pub fn is_allergic_to(&self, _a: &Allergen) -> bool {
+        // use binary and: 111 & 010 = 010
         false
     }
 
     pub fn allergies(&self) -> Vec<Allergen> {
-        vec![]
+        // well let's do it the naive way
+        let mut list: Vec<Allergen> = vec![];
+        if self % 128 == 0 { list.push(Allergen::Cats) }
     }
 }
