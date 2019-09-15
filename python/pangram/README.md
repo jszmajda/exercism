@@ -1,18 +1,12 @@
-# Hello World
+# Pangram
 
-The classical introductory exercise. Just say "Hello, World!".
+Determine if a sentence is a pangram. A pangram (Greek: παν γράμμα, pan gramma,
+"every letter") is a sentence using every letter of the alphabet at least once.
+The best known English pangram is:
+> The quick brown fox jumps over the lazy dog.
 
-["Hello, World!"](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program) is
-the traditional first program for beginning programming in a new language
-or environment.
-
-The objectives are simple:
-
-- Write a function that returns the string "Hello, World!".
-- Run the test suite and make sure that it succeeds.
-- Submit your solution and check it at the website.
-
-If everything goes well, you will be ready to fetch your first real exercise.
+The alphabet used consists of ASCII letters `a` to `z`, inclusive, and is case
+insensitive. Input will not contain non-ASCII symbols.
 
 ## Exception messages
 
@@ -32,11 +26,11 @@ raise Exception("Meaningful message indicating the source of the error")
 
 To run the tests, run the appropriate command below ([why they are different](https://github.com/pytest-dev/pytest/issues/1629#issue-161422224)):
 
-- Python 2.7: `py.test hello_world_test.py`
-- Python 3.4+: `pytest hello_world_test.py`
+- Python 2.7: `py.test pangram_test.py`
+- Python 3.4+: `pytest pangram_test.py`
 
 Alternatively, you can tell Python to run the pytest module (allowing the same command to be used regardless of Python version):
-`python -m pytest hello_world_test.py`
+`python -m pytest pangram_test.py`
 
 ### Common `pytest` options
 
@@ -48,7 +42,7 @@ For other options, see `python -m pytest -h`
 
 ## Submitting Exercises
 
-Note that, when trying to submit an exercise, make sure the solution is in the `$EXERCISM_WORKSPACE/python/hello-world` directory.
+Note that, when trying to submit an exercise, make sure the solution is in the `$EXERCISM_WORKSPACE/python/pangram` directory.
 
 You can find your Exercism workspace by running `exercism debug` and looking for the line that starts with `Workspace`.
 
@@ -57,7 +51,7 @@ please see [Running the Tests](http://exercism.io/tracks/python/tests).
 
 ## Source
 
-This is an exercise to introduce users to using Exercism [http://en.wikipedia.org/wiki/%22Hello,_world!%22_program](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program)
+Wikipedia [https://en.wikipedia.org/wiki/Pangram](https://en.wikipedia.org/wiki/Pangram)
 
 ## Submitting Incomplete Solutions
 

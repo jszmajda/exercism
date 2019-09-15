@@ -1,18 +1,16 @@
-# Hello World
+# High Scores
 
-The classical introductory exercise. Just say "Hello, World!".
+Manage a game player's High Score list.
 
-["Hello, World!"](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program) is
-the traditional first program for beginning programming in a new language
-or environment.
+Your task is to build a high-score component of the classic Frogger game, one of the highest selling and addictive games of all time, and a classic of the arcade era. Your task is to write methods that return the highest score from the list, the last added score and the three highest scores.
 
-The objectives are simple:
+In this exercise, you're going to use and manipulate lists. Python lists are very versatile, and you'll find yourself using them again and again in problems both simple and complex.
 
-- Write a function that returns the string "Hello, World!".
-- Run the test suite and make sure that it succeeds.
-- Submit your solution and check it at the website.
+- [**Data Structures (Python 3 Documentation Tutorial)**](https://docs.python.org/3/tutorial/datastructures.html)
+- [**Lists and Tuples in Python (Real Python)**](https://realpython.com/python-lists-tuples/)
+- [**Python Lists (Google for Education)**](https://developers.google.com/edu/python/lists)
 
-If everything goes well, you will be ready to fetch your first real exercise.
+
 
 ## Exception messages
 
@@ -32,11 +30,11 @@ raise Exception("Meaningful message indicating the source of the error")
 
 To run the tests, run the appropriate command below ([why they are different](https://github.com/pytest-dev/pytest/issues/1629#issue-161422224)):
 
-- Python 2.7: `py.test hello_world_test.py`
-- Python 3.4+: `pytest hello_world_test.py`
+- Python 2.7: `py.test high_scores_test.py`
+- Python 3.4+: `pytest high_scores_test.py`
 
 Alternatively, you can tell Python to run the pytest module (allowing the same command to be used regardless of Python version):
-`python -m pytest hello_world_test.py`
+`python -m pytest high_scores_test.py`
 
 ### Common `pytest` options
 
@@ -48,7 +46,7 @@ For other options, see `python -m pytest -h`
 
 ## Submitting Exercises
 
-Note that, when trying to submit an exercise, make sure the solution is in the `$EXERCISM_WORKSPACE/python/hello-world` directory.
+Note that, when trying to submit an exercise, make sure the solution is in the `$EXERCISM_WORKSPACE/python/high-scores` directory.
 
 You can find your Exercism workspace by running `exercism debug` and looking for the line that starts with `Workspace`.
 
@@ -57,7 +55,7 @@ please see [Running the Tests](http://exercism.io/tracks/python/tests).
 
 ## Source
 
-This is an exercise to introduce users to using Exercism [http://en.wikipedia.org/wiki/%22Hello,_world!%22_program](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program)
+Tribute to the eighties' arcade game Frogger
 
 ## Submitting Incomplete Solutions
 

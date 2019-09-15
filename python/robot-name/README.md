@@ -1,18 +1,19 @@
-# Hello World
+# Robot Name
 
-The classical introductory exercise. Just say "Hello, World!".
+Manage robot factory settings.
 
-["Hello, World!"](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program) is
-the traditional first program for beginning programming in a new language
-or environment.
+When robots come off the factory floor, they have no name.
 
-The objectives are simple:
+The first time you boot them up, a random name is generated in the format
+of two uppercase letters followed by three digits, such as RX837 or BC811.
 
-- Write a function that returns the string "Hello, World!".
-- Run the test suite and make sure that it succeeds.
-- Submit your solution and check it at the website.
+Every once in a while we need to reset a robot to its factory settings,
+which means that their name gets wiped. The next time you ask, it will
+respond with a new random name.
 
-If everything goes well, you will be ready to fetch your first real exercise.
+The names must be random: they should not follow a predictable sequence.
+Random names means a risk of collisions. Your solution must ensure that
+every existing robot has a unique name.
 
 ## Exception messages
 
@@ -32,11 +33,11 @@ raise Exception("Meaningful message indicating the source of the error")
 
 To run the tests, run the appropriate command below ([why they are different](https://github.com/pytest-dev/pytest/issues/1629#issue-161422224)):
 
-- Python 2.7: `py.test hello_world_test.py`
-- Python 3.4+: `pytest hello_world_test.py`
+- Python 2.7: `py.test robot_name_test.py`
+- Python 3.4+: `pytest robot_name_test.py`
 
 Alternatively, you can tell Python to run the pytest module (allowing the same command to be used regardless of Python version):
-`python -m pytest hello_world_test.py`
+`python -m pytest robot_name_test.py`
 
 ### Common `pytest` options
 
@@ -48,7 +49,7 @@ For other options, see `python -m pytest -h`
 
 ## Submitting Exercises
 
-Note that, when trying to submit an exercise, make sure the solution is in the `$EXERCISM_WORKSPACE/python/hello-world` directory.
+Note that, when trying to submit an exercise, make sure the solution is in the `$EXERCISM_WORKSPACE/python/robot-name` directory.
 
 You can find your Exercism workspace by running `exercism debug` and looking for the line that starts with `Workspace`.
 
@@ -57,7 +58,7 @@ please see [Running the Tests](http://exercism.io/tracks/python/tests).
 
 ## Source
 
-This is an exercise to introduce users to using Exercism [http://en.wikipedia.org/wiki/%22Hello,_world!%22_program](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program)
+A debugging session with Paul Blackwell at gSchool. [http://gschool.it](http://gschool.it)
 
 ## Submitting Incomplete Solutions
 

@@ -1,18 +1,32 @@
-# Hello World
+# Phone Number
 
-The classical introductory exercise. Just say "Hello, World!".
+Clean up user-entered phone numbers so that they can be sent SMS messages.
 
-["Hello, World!"](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program) is
-the traditional first program for beginning programming in a new language
-or environment.
+The **North American Numbering Plan (NANP)** is a telephone numbering system used by many countries in North America like the United States, Canada or Bermuda. All NANP-countries share the same international country code: `1`.
 
-The objectives are simple:
+NANP numbers are ten-digit numbers consisting of a three-digit Numbering Plan Area code, commonly known as *area code*, followed by a seven-digit local number. The first three digits of the local number represent the *exchange code*, followed by the unique four-digit number which is the *subscriber number*.
 
-- Write a function that returns the string "Hello, World!".
-- Run the test suite and make sure that it succeeds.
-- Submit your solution and check it at the website.
+The format is usually represented as
 
-If everything goes well, you will be ready to fetch your first real exercise.
+```text
+(NXX)-NXX-XXXX
+```
+
+where `N` is any digit from 2 through 9 and `X` is any digit from 0 through 9.
+
+Your task is to clean up differently formatted telephone numbers by removing punctuation and the country code (1) if present.
+
+For example, the inputs
+- `+1 (613)-995-0253`
+- `613-995-0253`
+- `1 613 995 0253`
+- `613.995.0253`
+
+should all produce the output
+
+`6139950253`
+
+**Note:** As this exercise only deals with telephone numbers used in NANP-countries, only 1 is considered a valid country code.
 
 ## Exception messages
 
@@ -32,11 +46,11 @@ raise Exception("Meaningful message indicating the source of the error")
 
 To run the tests, run the appropriate command below ([why they are different](https://github.com/pytest-dev/pytest/issues/1629#issue-161422224)):
 
-- Python 2.7: `py.test hello_world_test.py`
-- Python 3.4+: `pytest hello_world_test.py`
+- Python 2.7: `py.test phone_number_test.py`
+- Python 3.4+: `pytest phone_number_test.py`
 
 Alternatively, you can tell Python to run the pytest module (allowing the same command to be used regardless of Python version):
-`python -m pytest hello_world_test.py`
+`python -m pytest phone_number_test.py`
 
 ### Common `pytest` options
 
@@ -48,7 +62,7 @@ For other options, see `python -m pytest -h`
 
 ## Submitting Exercises
 
-Note that, when trying to submit an exercise, make sure the solution is in the `$EXERCISM_WORKSPACE/python/hello-world` directory.
+Note that, when trying to submit an exercise, make sure the solution is in the `$EXERCISM_WORKSPACE/python/phone-number` directory.
 
 You can find your Exercism workspace by running `exercism debug` and looking for the line that starts with `Workspace`.
 
@@ -57,7 +71,7 @@ please see [Running the Tests](http://exercism.io/tracks/python/tests).
 
 ## Source
 
-This is an exercise to introduce users to using Exercism [http://en.wikipedia.org/wiki/%22Hello,_world!%22_program](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program)
+Event Manager by JumpstartLab [http://tutorials.jumpstartlab.com/projects/eventmanager.html](http://tutorials.jumpstartlab.com/projects/eventmanager.html)
 
 ## Submitting Incomplete Solutions
 

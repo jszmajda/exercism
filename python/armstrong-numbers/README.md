@@ -1,18 +1,15 @@
-# Hello World
+# Armstrong Numbers
 
-The classical introductory exercise. Just say "Hello, World!".
+An [Armstrong number](https://en.wikipedia.org/wiki/Narcissistic_number) is a number that is the sum of its own digits each raised to the power of the number of digits.
 
-["Hello, World!"](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program) is
-the traditional first program for beginning programming in a new language
-or environment.
+For example:
 
-The objectives are simple:
+- 9 is an Armstrong number, because `9 = 9^1 = 9`
+- 10 is *not* an Armstrong number, because `10 != 1^2 + 0^2 = 1`
+- 153 is an Armstrong number, because: `153 = 1^3 + 5^3 + 3^3 = 1 + 125 + 27 = 153`
+- 154 is *not* an Armstrong number, because: `154 != 1^3 + 5^3 + 4^3 = 1 + 125 + 64 = 190`
 
-- Write a function that returns the string "Hello, World!".
-- Run the test suite and make sure that it succeeds.
-- Submit your solution and check it at the website.
-
-If everything goes well, you will be ready to fetch your first real exercise.
+Write some code to determine whether a number is an Armstrong number.
 
 ## Exception messages
 
@@ -32,11 +29,11 @@ raise Exception("Meaningful message indicating the source of the error")
 
 To run the tests, run the appropriate command below ([why they are different](https://github.com/pytest-dev/pytest/issues/1629#issue-161422224)):
 
-- Python 2.7: `py.test hello_world_test.py`
-- Python 3.4+: `pytest hello_world_test.py`
+- Python 2.7: `py.test armstrong_numbers_test.py`
+- Python 3.4+: `pytest armstrong_numbers_test.py`
 
 Alternatively, you can tell Python to run the pytest module (allowing the same command to be used regardless of Python version):
-`python -m pytest hello_world_test.py`
+`python -m pytest armstrong_numbers_test.py`
 
 ### Common `pytest` options
 
@@ -48,7 +45,7 @@ For other options, see `python -m pytest -h`
 
 ## Submitting Exercises
 
-Note that, when trying to submit an exercise, make sure the solution is in the `$EXERCISM_WORKSPACE/python/hello-world` directory.
+Note that, when trying to submit an exercise, make sure the solution is in the `$EXERCISM_WORKSPACE/python/armstrong-numbers` directory.
 
 You can find your Exercism workspace by running `exercism debug` and looking for the line that starts with `Workspace`.
 
@@ -57,7 +54,7 @@ please see [Running the Tests](http://exercism.io/tracks/python/tests).
 
 ## Source
 
-This is an exercise to introduce users to using Exercism [http://en.wikipedia.org/wiki/%22Hello,_world!%22_program](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program)
+Wikipedia [https://en.wikipedia.org/wiki/Narcissistic_number](https://en.wikipedia.org/wiki/Narcissistic_number)
 
 ## Submitting Incomplete Solutions
 
