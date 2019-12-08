@@ -5,15 +5,11 @@ data Classification = Deficient | Perfect | Abundant deriving (Eq, Show)
 classify :: Int -> Maybe Classification
 classify n
   | n <= 0    = Nothing
-  | otherwise = Just $ classify' (sumOfFactors n) n
+  | otherwise = Just $ classify' sumOfFactors
   where
-    sumOfFactors a = foldl (+) 0 (factors a)
-    factors a = filter (isFactorOf a) [1..(a `div` 2)]
-    classify' a b
-      | a == b    = Perfect
-      | a > b     = Abundant
+    sumOfFactors = foldl (+) 0 factors
+    factors = filter ((0 ==) . mod n) [1..(n `div` 2)]
+    classify' a
+      | a == n    = Perfect
+      | a > n     = Abundant
       | otherwise = Deficient
-
-isFactorOf :: Int -> Int -> Bool
-isFactorOf n x = (n `mod` x) == 0
-
