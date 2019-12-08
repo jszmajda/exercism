@@ -1,4 +1,5 @@
 kotlin/*/build
 kotlin/*/.gradle
 */venv
-*/.stack-work
+**/.stack-work
+tags
