@@ -4,6 +4,7 @@ import qualified Data.Text as T
 import Data.List (sort)
 import Data.Char (isAlpha)
 
+-- I could use `nub` but I think this might be clearer :shrug:
 isIsogram :: String -> Bool
 isIsogram t = not $ any (\g -> T.length g > 1) grouped
   where
