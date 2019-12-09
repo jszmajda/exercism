@@ -3,6 +3,7 @@ version: 1.7.0.8
 
 dependencies:
   - base
+  - text
 
 library:
   exposed-modules: Isogram
