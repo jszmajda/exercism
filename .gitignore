@@ -2,4 +2,5 @@ kotlin/*/build
 kotlin/*/.gradle
 */venv
 **/.stack-work
+**/__pycache__
 tags
