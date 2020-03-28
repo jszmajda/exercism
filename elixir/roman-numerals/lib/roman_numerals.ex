@@ -1,22 +1,34 @@
 defmodule RomanNumerals do
+  @letters ["", "", "M", "D", "C", "L", "X", "V", "I"]
+
   @doc """
   Convert the number to a roman number.
   """
   @spec numeral(pos_integer) :: String.t()
   def numeral(number) do
-    rem = number
-    {val, rem} = whatever(number, "", 1000, "", "M", "")
-    {val, rem} = whatever(rem, val, 100, "D", "C", "M")
-    {val, rem} = whatever(rem, val, 10, "L", "X", "C")
-    {val, rem} = whatever(rem, val, 1, "V", "I", "X")
-    val
+    @letters
+    |> Enum.chunk_every(3, 2, :discard)
+    |> Enum.with_index()
+    |> List.foldl({"", number}, fn data, acc ->
+      {iteraton_letters, power} = data
+      {partial_roman_string, remaining_number} = acc
+
+      expand_roman(
+        remaining_number,
+        partial_roman_string,
+        round(:math.pow(10, 3 - power)),
+        iteraton_letters
+      )
+    end)
+    |> elem(0)
   end
 
-  defp whatever(number, val, base, five, one, ten) do
+  defp expand_roman(number, base_string, base, letters) do
+    [ten, five, one] = letters
     base_times = div(number, base)
-    rem = rem(number, base)
+    remaining_number = rem(number, base)
 
-    append_val =
+    append_roman =
       cond do
         number >= 9 * base ->
           one <> ten
@@ -34,6 +46,6 @@ defmodule RomanNumerals do
           ""
       end
 
-    {val <> append_val, rem}
+    {base_string <> append_roman, remaining_number}
   end
 end
