@@ -24,19 +24,20 @@ defmodule ProteinTranslation do
   """
   @spec of_rna(String.t()) :: {atom, list(String.t())}
   def of_rna(rna) do
-    codons =
+    rna =
       String.graphemes(rna)
       |> Enum.chunk_every(3, 3)
       |> Enum.map(&Enum.join(&1, ""))
-      |> Enum.map(&of_codon(&1))
+      |> Enum.map(&of_codon/1)
 
-    if Enum.any?(codons, fn e -> elem(e, 0) == :error end) do
+    if Enum.any?(rna, fn e -> elem(e, 0) == :error end) do
       {:error, "invalid RNA"}
     else
-      {:ok,
-       codons
-       |> Enum.take_while(fn {r, e} -> r == :ok && e != "STOP" end)
-       |> Enum.map(&Kernel.elem(&1, 1))}
+      {
+        :ok,
+        Enum.map(rna, &Kernel.elem(&1, 1))
+        |> Enum.take_while(fn e -> e != "STOP" end)
+      }
     end
   end
 
