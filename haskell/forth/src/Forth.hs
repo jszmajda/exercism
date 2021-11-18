@@ -5,7 +5,7 @@ module Forth
   , ForthState
   , evalText
   , toList
-  , empty
+  , emptyState
   ) where
 
 import Data.Text (Text)
@@ -17,31 +17,13 @@ data ForthError
      | UnknownWord Text
      deriving (Show, Eq)
 
-data ForthState = Num a => [a]
+data ForthState = Dummy
 
-data ForthASTNode = Number
-                  | ArithOp(..)
-                  | StackOp(..)
-                  | DefineWordStart
-                  | DefineWordEnd
-                  | WordName
-
-data ArithOp = Add | Sub  | Div  | Mul
-data StackOp = Dup | Drop | Swap | Over
-
-empty :: ForthState
-empty = []
+emptyState :: ForthState
+emptyState = error "You need to implement this function."
 
 evalText :: Text -> ForthState -> Either ForthError ForthState
-evalText text stack = combine particles
-  where
-    combine = map (apply stack particle)
-    particles = parse $ unwords text
-
-parse :: [String]
-
-apply :: ForthState -> ForthASTNode -> ForthState
-apply stack
+evalText text stack = error "You need to implement this function."
 
 toList :: ForthState -> [Int]
 toList stack = error "You need to implement this function."
